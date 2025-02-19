@@ -1,0 +1,228 @@
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+.container {
+    width: 85%;
+    margin: 0 auto;
+}
+
+/* Header Section */
+.header {
+    background-color: #1f4e73;
+    padding: 40px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-content {
+    width: 90%;
+    max-width: 700px; /* Limits the width on large screens */
+    text-align: center; /* Centers text within the content box */
+}
+
+
+.header .logo img {
+    width: 100px;;
+    height: 100px;;
+}
+
+.header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+}
+
+.header nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 60;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+}
+
+.header nav ul li a:hover {
+    color: #ffd700;
+}
+
+/* Start Matching Section */
+.start-matching-section {
+    background-color: #a0d2eb;
+    padding: 60px 0;
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.start-matching-section h2 {
+    font-size: 2.5rem;
+    color: #1f4e73;
+    margin-bottom: 20px;
+}
+
+.start-matching-section p {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.start-matching-btn {
+    background-color: #ffd700;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1f4e73;
+    text-transform: uppercase;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.start-matching-btn:hover {
+    background-color: #ffbf00;
+    color: #fff;
+}
+
+/* Hero Section */
+.hero {
+    background-color: #1f4e73;
+    color: #fff;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+}
+
+.cta-btn {
+    background-color: #ffd700;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1f4e73;
+    border-radius: 50px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
+}
+
+.cta-btn:hover {
+    background-color: #ffbf00;
+    color: #fff;
+}
+
+/* About Section */
+.section {
+    padding: 80px 0;
+}
+
+.about-boxes, .feature-boxes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.about-item, .feature-item {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.about-item h3, .feature-item h3 {
+    font-size: 1.8rem;
+    color: #1f4e73;
+    margin-bottom: 15px;
+}
+
+.about-item p, .feature-item p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Footer Section */
+.footer {
+    background-color: #1f4e73;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+/* Notification styling */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: -400px; /* Initially off-screen */
+    width: 300px;
+    padding: 20px;
+    background-color: #e0f7fa; /* Light blue background */
+    color: #333333; /* Dark gray text */
+    border: 2px solid #004d40; /* Darker cyan border */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+    transition: right 0.5s ease-in-out;
+}
+
+/* Profile button styling within the notification */
+.profile-btn {
+    padding: 8px 16px;
+    background-color: #00796b; /* Dark cyan button */
+    color: #ffffff; /* White text for contrast */
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.profile-btn:hover {
+    background-color: #004d40; /* Slightly darker on hover */
+}
+
+/* Notification visible state */
+.show-notification {
+    right: 20px; /* Position inside the viewport */
+}
+
+/* Fancy Font for EduMate Title */
+.fancy-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    color: white;
+    text-align: center; /* Horizontally center the text */
+    margin-top: 20px;
+}
+
+/* EduMate Title Section */
+.edumate-title {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Take full viewport height */
+    background-color: #333; /* Optional: Set a background color */
+    color: white;
+}

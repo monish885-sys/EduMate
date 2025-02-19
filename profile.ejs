@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="/public/profile.css">
+    <script src="/src/script.js" defer></script> <!-- Link to script.js -->
+</head>
+<body>
+    <!-- Back Button -->
+    <a href="/home" class="back-btn">← Back to Home</a>
+
+    <div class="profile-container">
+        <h1>Student Profile</h1>
+
+        <!-- User feedback area -->
+        <div id="feedback" class="feedback-message"></div>
+
+        <!-- Display Profile Information and Edit Form -->
+        <form action="/updateProfile" method="POST" id="profile-form">
+            <!-- Name -->
+            <div class="profile-item">
+                <label for="name">Name:</label>
+                <span id="name-display"><%= user.name %></span>
+                <input type="text" id="name-input" name="name" value="<%= user.name %>" style="display: none;" required>
+                <button type="button" class="edit-btn" onclick="toggleEdit('name')">Edit</button>
+            </div>
+
+            <!-- Email -->
+            <div class="profile-item">
+                <label for="email">Email:</label>
+                <span id="email-display"><%= user.profile.email %></span>
+                <input type="email" id="email-input" name="email" value="<%= user.profile.email %>" style="display: none;" required>
+                <button type="button" class="edit-btn" onclick="toggleEdit('email')">Edit</button>
+            </div>
+
+            <!-- Semester -->
+            <div class="profile-item">
+                <label for="semester">Semester:</label>
+                <span id="semester-display"><%= user.profile.semester %></span>
+                <select id="semester-input" name="semester" style="display: none;" required>
+                    <option value="" disabled>Select Semester</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                </select>
+                <button type="button" class="edit-btn" onclick="toggleEdit('semester')">Edit</button>
+            </div>
+
+            <!-- Strong Subject -->
+            <div class="profile-item">
+                <label for="strongsub">Strong Subject:</label>
+                <span id="strongsub-display"><%= user.profile.strongsub %></span>
+                <input type="text" id="strongsub-input" name="strongsub" value="<%= user.profile.strongsub %>" style="display: none;" required>
+                <button type="button" class="edit-btn" onclick="toggleEdit('strongsub')">Edit</button>
+            </div>
+
+            <!-- Strong Subtopic -->
+            <div class="profile-item">
+                <label for="strongtop">Strong Subtopic:</label>
+                <span id="strongtop-display"><%= user.profile.strongtop %></span>
+                <input type="text" id="strongtop-input" name="strongtop" value="<%= user.profile.strongtop %>" style="display: none;" required>
+                <button type="button" class="edit-btn" onclick="toggleEdit('strongtop')">Edit</button>
+            </div>
+            <!-- Mode of Study -->
+            <div class="profile-item">
+                <label for="modeofstudy">Mode of Study:</label>
+                <span id="modeofstudy-display"><%= user.profile.modeofstudy %></span>
+                <select id="modeofstudy-input" name="modeofstudy" style="display: none;" required>
+                    <option value="" disabled>Select Mode of Study</option>
+                    <option value="Offline">Offline</option>
+                    <option value="Online">Online</option>
+                </select>
+                <button type="button" class="edit-btn" onclick="toggleEdit('modeofstudy')">Edit</button>
+            </div>            
+
+            <!-- Save Button -->
+            <button type="submit" class="save-btn">Save Changes</button>
+        </form>
+    </div>

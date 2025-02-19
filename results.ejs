@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/results.css">
+    <title>Match Results</title>
+</head>
+<body>
+    <div class="results-container">
+        <h1>Matching Results</h1>
+
+        <% if (matches.length > 0) { %>
+            <ul class="results-list">
+                <% matches.forEach(match => { %>
+                    <li class="result-item">
+                        <strong>Name:</strong> <%= match.name %><br>
+                        <strong>Strong Subject:</strong> <%= match.profile.strongsub %><br>
+                        <strong>Strong Subtopic:</strong> <%= match.profile.strongtop %><br>
+                        <strong>Mode of Study:</strong> <%= match.profile.modeofstudy %><br>
+                        <button class="connect-button" onclick="sendConnectionRequest('<%= match.id %>', '<%= match.goal %>', '<%= match.subName %>')">Connect</button>
+                    </li>
+                <% }); %>
+            </ul>
+        <% } else { %>
+            <p>No matching users found.</p>
+        <% } %>
+
+        <a href="/match" class="back-link">Back to Match Page</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,174 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9; /* Light background for a clean look */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Back Button Styling */
+.back-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #4a90e2; /* Soft blue */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: transform 0.2s ease;
+}
+
+.back-btn:hover {
+    transform: translateX(-5px);
+}
+
+/* Profile Container */
+.profile-container {
+    width: 90%; /* Responsive width for smaller screens */
+    max-width: 500px; /* Ensures it doesn't get too wide on large screens */
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out; /* Container fade-in animation */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Profile Header */
+.profile-container h1 {
+    font-size: 24px;
+    color: #4a90e2; /* Matching the theme color */
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Profile Section */
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Profile Item */
+.profile-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e6e6e6;
+    flex-wrap: wrap; /* Ensures items don’t overlap on small screens */
+}
+
+.profile-item label {
+    font-weight: bold;
+    color: #4a90e2; /* Consistent color */
+    width: 40%; /* Ensures labels and input fields align */
+    min-width: 100px;
+}
+
+.profile-item span, .editable {
+    font-size: 16px;
+    color: #333;
+    flex-grow: 1;
+    text-align: left;
+}
+
+/* Editable Fields */
+.editable {
+    padding: 5px;
+    font-size: 16px;
+    color: #333;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+    width: 100%; /* Ensure it uses full space when editing */
+    margin-top: 5px; /* Adds space between label and input */
+}
+
+/* Edit Button */
+.edit-btn {
+    background-color: transparent;
+    border: none;
+    color: #4a90e2;
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.3s ease;
+    margin-left: 10px;
+}
+
+.edit-btn:hover {
+    color: #0056b3;
+}
+
+/* Save Button */
+.save-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #4a90e2;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.save-btn:hover {
+    background-color: #357ab8; /* Slightly darker blue */
+}
+
+/* Slide-in Animation for Profile Item Edit */
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Animations for Input Fields */
+.editable {
+    animation: slideIn 0.3s ease-in-out;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    .profile-container {
+        width: 95%; /* Takes almost full width on smaller screens */
+    }
+
+    .profile-item {
+        flex-direction: column; /* Stack label and inputs on small screens */
+        align-items: flex-start;
+    }
+
+    .profile-item label {
+        width: 100%; /* Full width on smaller screens */
+    }
+
+    .profile-item span, .editable {
+        width: 100%; /* Full width for display and editable fields */
+    }
+
+    .back-btn {
+        font-size: 14px;
+    }
+
+    .save-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+}

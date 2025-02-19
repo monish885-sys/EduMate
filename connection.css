@@ -1,0 +1,45 @@
+.results-container {
+    font-family: 'Poppins', sans-serif;
+    margin: 20px;
+}
+
+.results-list, .requests-section, .connected-section {
+    list-style-type: none;
+    padding: 0;
+}
+
+.result-item, .requests-section li, .connected-section li {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.connect-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.connect-button:hover {
+    background-color: #45a049;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: #007BFF;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}

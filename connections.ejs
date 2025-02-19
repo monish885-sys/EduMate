@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>EduMate - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet"> <!-- Fancy Font -->
+    <link rel="stylesheet" href="/public/connection.css">
+</head>
+<body>
+    <div class="requests-section">
+        <h2>Connection Requests</h2>
+        <ul id="requests-list">
+            <% requests.forEach(request => { %>
+                <li>
+                    <strong>From:</strong> <%= request.requesterName %><br>
+                    <strong>Goal:</strong> <%= request.goal %><br>
+                    <strong>Sub Name:</strong> <%= request.subName %><br>
+                    <button onclick="acceptConnectionRequest('<%= request.id %>')">Accept</button>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+    <div class="connected-section">
+        <h2>Connected Users</h2>
+        <ul id="connected-list">
+            <% connectedUsers.forEach(user => { %>
+                <li>
+                    <strong>Name:</strong> <%= user.name %><br>
+                    <strong>Goal:</strong> <%= user.goal %><br>
+                    <strong>Sub Name:</strong> <%= user.subName %><br>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

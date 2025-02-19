@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/match.css">
+    <title>Match Details</title>
+</head>
+<a href="/home" class="back-btn">← Back to Home</a>
+
+<body>
+    <div class="form-container">
+        <h1>Match Details</h1>
+        <form action="/findMatches" method="POST">
+            <label for="strugglingSubject">Struggling Subject</label>
+            <input type="text" id="strugglingSubject" name="strugglingSubject" placeholder="Enter subject" required>
+
+            <label for="strugglingSubtopic">Struggling Subtopic</label>
+            <input type="text" id="strugglingSubtopic" name="strugglingSubtopic" placeholder="Enter subtopic" required>
+
+            <label for="modeOfStudy">Mode of Study</label>
+            <input type="text" id="modeOfStudy" name="modeOfStudy" placeholder="Preferred mode of study" required>
+
+            <label for="sessionGoal">Session Goal</label>
+            <select id="sessionGoal" name="sessionGoal" required>
+                <option value="">Select goal</option>
+                <option value="Review Material">Review Material</option>
+                <option value="Practice Problems">Practice Problems</option>
+                <option value="Project Work">Project Work</option>
+            </select>
+
+            <button type="submit">Find Matches</button>
+        </form>
+    </div>
+</body>
+</html>
