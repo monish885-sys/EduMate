@@ -1,21 +1,25 @@
-.results-container {
+.connections-container {
     font-family: 'Poppins', sans-serif;
     margin: 20px;
 }
 
-.results-list, .requests-section, .connected-section {
+.requests-section, .connected-section {
+    margin-bottom: 20px;
+}
+
+.requests-section ul, .connected-section ul {
     list-style-type: none;
     padding: 0;
 }
 
-.result-item, .requests-section li, .connected-section li {
+.requests-section li, .connected-section li {
     border: 1px solid #ccc;
     padding: 10px;
     margin: 10px 0;
     border-radius: 5px;
 }
 
-.connect-button {
+.accept-button {
     background-color: #4CAF50; /* Green */
     color: white;
     border: none;
@@ -29,7 +33,7 @@
     border-radius: 5px;
 }
 
-.connect-button:hover {
+.accept-button:hover {
     background-color: #45a049;
 }
 
