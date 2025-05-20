@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
-const collection = require("./config");
+const { User, Connection } = require("./config"); // Import User and Connection models
 
 const app = express();
 
@@ -15,9 +15,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.set("view engine", 'ejs');
-app.use('/public',express.static("public"));
-app.use('/views',express.static("views"));
-app.use('/src',express.static("src"));
+app.use('/public', express.static("public"));
+app.use('/views', express.static("views"));
+app.use('/src', express.static("src"));
 
 app.get("/login", (req, res) => {
     res.render("login");
@@ -39,40 +39,41 @@ app.get("/connections", (req, res) => {
     res.render("connections");
 });
 
-app.get("/success",(req,res) =>{
-    res.render("success")
-})
+app.get("/success", (req, res) => {
+    res.render("success");
+});
 
-app.get("/home",(req,res) =>{
-    res.render("home")
-})
+app.get("/home", (req, res) => {
+    res.render("home");
+});
 
 app.post("/signup", async (req, res) => {
     try {
         const { username, password } = req.body;
-        const existingUser = await collection.findOne({ name: username });
+        const existingUser = await User.findOne({ username: username }); // Use User model
 
         if (existingUser) {
-            return res.status(400).send("User already exists. Please use a different username.");
+            return res.status(400).send("User   already exists. Please use a different username.");
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        await collection.create({ name: username, password: hashedPassword });
+        await User.create({ username: username, password: hashedPassword }); // Use User model
 
-        res.redirect('/success')
+        res.redirect('/success');
     } catch (error) {
         console.error("Signup error:", error);
         res.status(500).send("Internal Server Error");
     }
 });
-//login route
+
+// Login route
 app.post("/login", async (req, res) => {
     try {
         const { username, password } = req.body;
-        const user = await collection.findOne({ name: username });
+        const user = await User.findOne({ username: username }); // Use User model
 
         if (!user) {
-            return res.status(400).send("User Name Cannot be Found");
+            return res.status(400).send("User   Name Cannot be Found");
         }
 
         const isPasswordMatch = await bcrypt.compare(password, user.password);
@@ -93,14 +94,15 @@ app.get("/home", (req, res) => {
     }
     res.render("home");
 });
-//profile route
+
+// Profile route
 app.get("/profile", async (req, res) => {
     if (!req.session.userId) {
         return res.redirect("/login");
     }
 
     try {
-        const user = await collection.findById(req.session.userId);
+        const user = await User.findById(req.session.userId); // Use User model
         res.render("profile", { user });
     } catch (error) {
         console.error("Error fetching profile:", error);
@@ -108,21 +110,21 @@ app.get("/profile", async (req, res) => {
     }
 });
 
-//upprofile
+// Update profile
 app.post("/updateProfile", async (req, res) => {
     if (!req.session.userId) {
         return res.redirect("/login");
     }
 
     try {
-        const { name, email, semester, strongsub, strongtop,modeofstudy } = req.body;
+        const { username, email, semester, strongsub, strongtop, modeofstudy } = req.body;
 
         // Update the user's profile in the database
-        await collection.updateOne(
-            { _id: req.session.userId },
+        await User.updateOne(
+            { _id: req.session.userId }, // Use User model
             {
                 $set: {
-                    name: name,
+                    username: username,
                     profile: {
                         email: email,
                         semester: semester,
@@ -134,11 +136,10 @@ app.post("/updateProfile", async (req, res) => {
             }
         );
 
-        // Redirect to the profile page or home page after update
         res.redirect("/profile");
     } catch (error) {
         console.error("Error updating profile:", error);
-        res.status(500).send("Internal Server Error");
+        res.status(500).send("Error updating profile");
     }
 });
 
@@ -148,19 +149,99 @@ app.post("/findMatches", async (req, res) => {
 
     try {
         // Query the database for matching users
-        const matches = await collection.find({
+        const matches = await User.find({
             "profile.strongsub": strugglingSubject,
             "profile.strongtop": strugglingSubtopic,
             "profile.modeofstudy": modeOfStudy
         });
 
-        // Render the results page with the matching users
-        res.render("results", { matches });
+        res.render("results", { matches, userId: req.session.userId });
     } catch (error) {
         console.error("Error finding matches:", error);
+        res.status(500).send("Error finding matches");
+    }
+});
+
+// Connection request handling
+app.post("/connect", async (req, res) => {
+    const { userIdToConnect } = req.body;
+
+    try {
+        const connection = new Connection({
+            requesterId: req.session.userId, // Use the logged-in user's ID
+            recipientId: userIdToConnect // Corrected property name
+        });
+
+        await connection.save();
+        res.redirect("/connections");
+    } catch (error) {
+        console.error("Error creating connection:", error);
+        res.status(500).send("Error creating connection");
+    }
+});
+
+// Route for connections
+app.post('/api/connections/request', (req, res) => {
+    console.log("Received connection request:", req.body);
+    const { recipientId, goal, subName, requesterId } = req.body;
+
+    const connectionRequest = new Connection({
+        requesterId,
+        recipientId,
+        goal,
+        subName,
+        status: 'pending',
+    });
+
+    connectionRequest.save()
+        .then(() => res.json({ success: true }))
+        .catch(err => res.status(500).json({ success: false, error: err.message }));
+});
+
+app.post('/api/connections/accept', (req, res) => {
+    const { requestId } = req.body;
+
+    Connection.findByIdAndUpdate(requestId, { status: 'accepted' })
+        .then(() => res.json({ success: true }))
+        .catch(err => res.status(500).json({ success: false, error: err.message }));
+});
+
+app.get('/connections/:userId', async (req, res) => {
+    try {
+        const userId = req.params.userId;
+
+        // Fetch pending connection requests
+        const requests = await Connection.find({ recipientId: userId, status: 'pending' })
+            .populate('requesterId', 'username goal subName')
+            .lean(); // Ensures we get a plain object
+
+        // Fetch accepted connections
+        const connectedUsers = await Connection.find({
+            $or: [
+                { requesterId: userId, status: 'accepted' },
+                { recipientId: userId, status: 'accepted' }
+            ]
+        })
+        .populate('requesterId', 'username goal subName')
+        .populate('recipientId', 'username goal subName')
+        .lean(); 
+
+        // Ensure both variables are defined when rendering
+        res.render('connections', { 
+            requests: requests || [], 
+            connectedUsers: connectedUsers || [], // ✅ Ensure connectedUsers is always an array
+            userId 
+        });
+    } catch (err) {
+        console.error("Error fetching connections:", err);
         res.status(500).send("Internal Server Error");
     }
 });
+
+
+
+// Start the server
+
 const port = 5000;
 app.listen(port, () => {
     console.log(`Server running on Port: ${port}`);

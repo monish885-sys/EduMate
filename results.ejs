@@ -15,11 +15,14 @@
             <ul class="results-list">
                 <% matches.forEach(match => { %>
                     <li class="result-item">
-                        <strong>Name:</strong> <%= match.name %><br>
+                        <strong>Name:</strong> <%= match.username %><br>
                         <strong>Strong Subject:</strong> <%= match.profile.strongsub %><br>
                         <strong>Strong Subtopic:</strong> <%= match.profile.strongtop %><br>
                         <strong>Mode of Study:</strong> <%= match.profile.modeofstudy %><br>
-                        <button class="connect-button" onclick="sendConnectionRequest('<%= match.id %>', '<%= match.goal %>', '<%= match.subName %>')">Connect</button>
+                        <button class="connect-button" 
+                        onclick="sendConnectionRequest('<%= match.id %>', '<%= match.goal %>', '<%= match.subName %>', '<%= userId %>')">
+                        Connect
+                     </button>
                     </li>
                 <% }); %>
             </ul>
@@ -29,5 +32,6 @@
 
         <a href="/match" class="back-link">Back to Match Page</a>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>

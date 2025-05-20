@@ -3,37 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>EduMate - Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet"> <!-- Fancy Font -->
-    <link rel="stylesheet" href="/public/connection.css">
+    <link rel="stylesheet" href="/connections.css">
+    <title>My Connections</title>
 </head>
 <body>
-    <div class="requests-section">
-        <h2>Connection Requests</h2>
-        <ul id="requests-list">
-            <% requests.forEach(request => { %>
-                <li>
-                    <strong>From:</strong> <%= request.requesterName %><br>
-                    <strong>Goal:</strong> <%= request.goal %><br>
-                    <strong>Sub Name:</strong> <%= request.subName %><br>
-                    <button onclick="acceptConnectionRequest('<%= request.id %>')">Accept</button>
-                </li>
-            <% }); %>
-        </ul>
-    </div>
-    <div class="connected-section">
-        <h2>Connected Users</h2>
-        <ul id="connected-list">
-            <% connectedUsers.forEach(user => { %>
-                <li>
-                    <strong>Name:</strong> <%= user.name %><br>
-                    <strong>Goal:</strong> <%= user.goal %><br>
-                    <strong>Sub Name:</strong> <%= user.subName %><br>
-                </li>
-            <% }); %>
-        </ul>
+    <div class="connections-container">
+        <h1>My Connections</h1>
+
+        <div class="requests-section">
+            <h2>Connection Requests</h2>
+            <ul id="requests-list">
+                <% if (typeof requests !== 'undefined' && Array.isArray(requests) && requests.length > 0) { %>   
+                    <% requests.forEach(request => { %>        
+                        <li>
+                            <strong>From:</strong> <%= request.requesterId ? request.requesterId.username : "Unknown User" %> <br>
+                            <button onclick="acceptConnectionRequest('<%= request._id %>')">Accept</button>
+                        </li>
+                    <% }); %>
+                <% } else { %>
+                    <p>No connection requests found.</p>
+                <% } %>
+            </ul>
+        </div>
+
+        <div class="connected-section">
+            <h2>Connected Users</h2>
+            <ul id="connected-list">
+                <% if (typeof connectedUsers !== 'undefined' && Array.isArray(connectedUsers) && connectedUsers.length > 0) { %>
+                    <% connectedUsers.forEach(user => { %>
+                        <li>
+                            <strong>Name:</strong> <%= user.requesterId ? user.requesterId.username : (user.recipientId ? user.recipientId.username : "Unknown User") %><br>
+                        </li>
+                    <% }); %>
+                <% } else { %>
+                    <p>No connected users found.</p>
+                <% } %>
+                
+            </ul>
+        </div>
+
+        <a href="/home" class="back-link">Back to Home Page</a>
     </div>
     <script src="script.js"></script>
 </body>

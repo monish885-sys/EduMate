@@ -20,13 +20,14 @@ function saveChanges() {
 }
 
 
-function sendConnectionRequest(userId, goal, subName) {
+function sendConnectionRequest(recipientId, goal, subName, requesterId) {
+    console.log("Sending request to:", recipientId, goal, subName, requesterId);
     fetch('/api/connections/request', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userId, goal, subName }),
+        body: JSON.stringify({ recipientId, goal, subName, requesterId }),
     })
     .then(response => response.json())
     .then(data => {
@@ -34,6 +35,52 @@ function sendConnectionRequest(userId, goal, subName) {
             alert('Connection request sent successfully!');
         } else {
             alert('Failed to send connection request.');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+function acceptConnectionRequest(requestId) {
+    fetch('/api/connections/accept', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ requestId }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Connection request accepted!');
+            // Optionally, refresh the requests list or remove the accepted request from the UI
+            location.reload(); // Reload the page to see updated requests and connections
+        } else {
+            alert('Failed to accept connection request.');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+
+function acceptConnectionRequest(requestId) {
+    fetch('/api/connections/accept', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ requestId }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Connection request accepted!');
+            // Optionally, refresh the requests list or remove the accepted request from the UI
+            location.reload(); // Reload the page to see updated requests and connections
+        } else {
+            alert('Failed to accept connection request.');
         }
     })
     .catch((error) => {
